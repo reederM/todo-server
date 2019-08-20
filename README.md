@@ -1,27 +1,24 @@
+**Install**
+`$ yarn`
 
-**JWT documentation**
-https://gist.github.com/thebigredgeek/230368bd92aa19e3f6638b659edf5cef
+**Test**
+Not every path has been tested but most of the main functionality of the service are tested. Test files are located with their corresponding server files.
+`$ yarn test`
 
-didn't use import syntax bc i didn't wnat to bring in any more external code than nessisary
+**Add A User**
+Since we only want our "Pointy-haired-boss" to be able to use this application, we need a way to generate a user.
+`$ yarn addUser`
 
-instructions on setting up and running
+**Run**
+Starting the server in development mode will cause it to restart whenever we make any changes.
+`$ yarn dev`
 
-unit tests for model class interfaces
-
-**Instructions**
-manually add an admin user by using `yarn adduser`
-
-
-**Tests**
-didn't do some sad paths
-
-
-didn't add any user 'roles' so all users can edit todos, however new users do need to be created manually
-
-
-Could have implemented by "soft-deleting" todos to allow user to see all completed tasks
-
+Starting the server in production mode
+`$ yarn start`
 
 **Design**
+The main design decision was to define the routes as javascript objects. This makes adding new routes much easier and also gives us an api to include common functionality across routes. The main one being adding an `auth: true` param to the route definitions. Additionally, this pattern decouples the route handler function from where it is added to the express app (`app[method](/* handler */)`). This makes the handlers more unit testable.
 
-easy to add new routes by just adding a new route config to the module.exports
+If given more time I would have liked to change the way deleting works. It would be more useful to have the "Todos" to be soft deleted. This way the user could see all previous "Todos" they had completed and also have the ability to undelete if desired.
+
+Lastly I am using the CommonJS `require` pattern for this project. I didn't feel like bringing in a build step was necessary given the requirements. 
